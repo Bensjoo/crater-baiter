@@ -1,103 +1,47 @@
-<html>
-  <head>
-    <title>Crater Baiter (v0 alpha)</title>
-    <style>
-        .class-choice {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        font-weight: bold;
-        }
-        .class-choice label {
-            width: 45%;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            font-family: Arial;
-            cursor: pointer;
-        }
-        .deathknight {
-          color: #C41F3B;
-        }
-        .demonhunter {
-          color: #A330C9;
-        }
-        .druid {
-          color: #FF7D0A;
-        }
-        .hunter {
-          color: #ABD473;
-        }
-        .mage {
-          color: #69CCF0;
-        }
-        .monk {
-          color: #00FF96;
-        }
-        .paladin {
-          color: #F58CBA;
-        }
-        .priest {
-          color: #FFFFFF;
-        }
-        .rogue {
-          color: #FFF569;
-        }
-        .shaman {
-          color: #0070DE;
-        }
-        .warlock {
-          color: #9482C9;
-        }
-        .warrior {
-          color: #C79C6E;
-        }
-        .evoker {
-          color: #005e35;
-        }
-      </style>
-    <script>
-      function getCursorPosition(e) {
-        var x = e.clientX;
-        var y = e.clientY;
-        document.getElementById("location").value = x + ", " + y;
-      }
-    </script>
-  </head>
-  <body>
-    <h1>Crater Baiter (v0 alpha)</h1>
-    <form action="/" method="post">
-        <label for="class_choice">Choose a class:</label>
-        <br><br>
-        <div style="display: inline-block;">
-          {% for class_name in classes[:6] %}
-            <div class="class-item">
-              <input type="radio" id="{{ class_name|lower }}" name="class_choice" value="{{ class_name|lower }}">
-              <label for="{{ class_name|lower }}">
-                <span class="class-name {{ class_name|lower }}">{{ class_name }}</span>
-              </label>
-            </div>
-          {% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="static/style.css">
+  <title>Crater Baiter {{app_version}}</title>
+</head>
+<body class="bg-black">
+  <main>
+    <div class="main-page-wrapper container flow text-white">
+      <h1 class="ff-heading fs-900">Crater Baiter {{app_version}}</h1>
+      <form action="/" method="post" class="flow">
+          <label class="fs-500 ff-heading fw-700" for="class_choice">Choose a class:</label>
+          <div class="class-choice">
+            {% for class in classes %}
+              {% set name = class.pretty_name %}
+              {% set css = class.css %}
+              <div class="class-item">
+                <input type="radio" id="{{ name|lower }}" name="class_choice" value="{{ name|lower }}">
+                <label for="{{ name|lower }}">
+                  <span class="class-name {{ css|lower }}">{{ name }}</span>
+                </label>
+              </div>
+            {% endfor %}
+          </div>
+        <div class="flow">
+          <label for="location">Mark your location in Dalaran Crater:</label>
+          <input type="text" id="location" name="location" readonly>
+          <button type="submit" class="wow-button bg-wow-red text-white fw-700"> Mark </button>
         </div>
-        <div style="display: inline-block;">
-          {% for class_name in classes[6:] %}
-            <div class="class-item">
-              <input type="radio" id="{{ class_name|lower }}" name="class_choice" value="{{ class_name|lower }}">
-              <label for="{{ class_name|lower }}">
-                <span class="class-name {{ class_name|lower }}">{{ class_name }}</span>
-              </label>
-            </div>
-          {% endfor %}
-        </div>
-      <br><br>
-      <label for="location">Mark your location in Dalaran Crater:</label>
-      <input type="text" id="location" name="location" readonly>
-      <br><br>
-      <img src="{{url_for('static', filename='crater.png')}}" onclick="getCursorPosition(event)">
-      <br><br>
-      <input type="submit" value="Submit">
-    </form>
-  </body>
+
+        <img src="{{url_for('static', filename='crater.png')}}" onclick="getCursorPosition(event)">
+      </form>
+    </div>
+  </main>
+  
+  <script>
+    function getCursorPosition(e) {
+      var x = e.clientX;
+      var y = e.clientY;
+      document.getElementById("location").value = x + ", " + y;
+    }
+  </script>
+</body>
 </html>
