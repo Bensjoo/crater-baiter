@@ -1,22 +1,32 @@
 from flask import Flask, request, render_template
-
+from dataclasses import dataclass
 app = Flask(__name__)
+VERSION = "v0.0.1-alpha"
 
-classes = [
-    "Warrior",
-    "Paladin",
-    "Hunter",
-    "Rogue",
-    "Priest",
-    "Death Knight",
-    "Shaman",
-    "Mage",
-    "Warlock",
-    "Druid",
-    "Demon Hunter",
-    "Evoker"
+## you can get app version globally in jinja by doing this
+app.jinja_env.globals.update(app_version=VERSION)
+
+
+@dataclass
+class WOWClass:
+    pretty_name:str
+    css:str
+
+
+classes:list[WOWClass] = [
+    WOWClass("Warrior","warrior"),
+    WOWClass("Paladin","paladin"),
+    WOWClass("Hunter","hunter"),
+    WOWClass("Rogue","rogue"),
+    WOWClass("Priest","preist"),
+    WOWClass("Death Knight","deathknight"),
+    WOWClass("Shaman","shaman"),
+    WOWClass("Mage","mage"),
+    WOWClass("Warlock","warlock"),
+    WOWClass("Druid","druid"),
+    WOWClass("Demon Hunter","demonhunter"),
+    WOWClass("Evoker","evoker")
 ]
-classes.sort()
 @app.route("/", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
