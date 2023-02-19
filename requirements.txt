@@ -1,2 +1,12 @@
 flask
+flask-bcrypt
+flask-sqlalchemy
+flask-login
+flask-wtf
 jinja2
+authlib
+requests
+
+# testing
+flake8
+pytest
