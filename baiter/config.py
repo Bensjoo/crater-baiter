@@ -18,6 +18,7 @@ class DevConfig(Config):
     # Discord auth
     DISCORD_CLIENT_ID = os.getenv('DISCORD_CLIENT_ID')
     DISCORD_SECRET_KEY = os.getenv('DISCORD_SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///project.db'
 
 
 class ProdConfig(Config):
