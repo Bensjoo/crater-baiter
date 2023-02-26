@@ -1,9 +1,9 @@
 from flask import redirect, request, render_template, session, Blueprint, url_for
 
-# from flask_login import login_user
+from flask_login import login_required, login_user, current_user
 
 from baiter import discord, db
-from baiter.models import load_user
+from baiter.models import User, load_user
 from baiter.auth import CALLBACK_ROUTE
 # from models import classes
 
@@ -18,7 +18,6 @@ def home():
     provide link to login or 'add new victim' button
     TODO: see overview of kill statistics/list of kills if logged in?
     """
-    # token = session.get('access_token')
 
     # if not token:
     return render_template('home.html', oauth_url=discord.oauth_url)
@@ -36,16 +35,30 @@ def home():
 @main_bp.route(CALLBACK_ROUTE)
 def callback():
     code = request.args['code']
-    session['token'] = discord.access_token(code)
-    current_user = discord.get_current_user(session['token'])
+    token = discord.access_token(code)
+    current_user = discord.get_current_user(token)
 
-    # check if user already in db of users
-    #if 
-    #login_user(current_user)
-    return f"""current_user = {current_user['username']} \n\n type(current_user) = {type(current_user)}"""
+    user = User.query.filter_by(discord_id=current_user['id']).first()
+    if not user:
+        user = User(
+            discord_id=current_user['id'],
+            username=current_user['username']
+        )
+        db.session.add(user)
+        db.session.commit()
+
+    login_user(user)
+    return redirect(url_for('main_bp.logged_in'))
 
 
-# @login_required
+@login_required
+@main_bp.route('/loggedin')
+def logged_in():
+    if current_user.is_authenticated:
+        return f"current user = {current_user.username}"
+    else:
+        return "login failed for some reason!"
+
 # @main_bp.route("/crater", methods=["GET", "POST"])
 # def add_victim():
 #     if request.method == "POST":

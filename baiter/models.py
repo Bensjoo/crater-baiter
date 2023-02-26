@@ -28,17 +28,20 @@ classes: list[WOWClass] = [
 ]
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+
 class User(db.Model, UserMixin):
     """
     simple User model based on discord Oauth info
     """
     id = db.Column(db.Integer, primary_key=True)
+    discord_id = db.Column(db.Integer, unique=True, nullable=False)
     username = db.Column(db.String, unique=True, nullable=False)
 
     def __repr__(self):
         return f"User('{self.username}')"
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
