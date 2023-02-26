@@ -3,6 +3,7 @@ from flask import redirect, request, render_template, session, Blueprint, url_fo
 # from flask_login import login_user
 
 from baiter import discord, db
+from baiter.models import load_user
 from baiter.auth import CALLBACK_ROUTE
 # from models import classes
 
@@ -41,7 +42,7 @@ def callback():
     # check if user already in db of users
     #if 
     #login_user(current_user)
-    return f"""current_user = {current_user} \n\n type(current_user) = {type(current_user)}"""
+    return f"""current_user = {current_user['username']} \n\n type(current_user) = {type(current_user)}"""
 
 
 # @login_required

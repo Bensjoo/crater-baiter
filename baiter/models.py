@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from flask_login import UserMixin
+
 
 from baiter import db, login_manager
 
@@ -26,7 +28,7 @@ classes: list[WOWClass] = [
 ]
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     """
     simple User model based on discord Oauth info
     """
