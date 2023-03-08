@@ -8,5 +8,5 @@ authlib
 requests
 
 # testing
-flake8
-pytest
+#flake8
+#pytest

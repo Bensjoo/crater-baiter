@@ -1,9 +1,11 @@
 from flask import redirect, request, render_template, session, Blueprint, url_for
 
+
 from flask_login import login_required, login_user, current_user
 
+
 from baiter import discord, db
-from baiter.models import User, load_user
+from baiter.models import User
 from baiter.auth import CALLBACK_ROUTE
 # from models import classes
 

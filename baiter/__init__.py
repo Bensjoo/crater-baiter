@@ -1,9 +1,11 @@
+import os
+
 from flask import Flask, render_template
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 from baiter.auth import DiscordAuth
-
+from baiter.config import config
 
 db = SQLAlchemy()
 discord = DiscordAuth()
@@ -12,11 +14,13 @@ login_manager.login_view = 'main'
 
 
 def create_app():
+    conf_var = config[os.getenv('CONFIG_APP')]
+
     # create the Flask app instance
     app = Flask(__name__)
 
     # configure app settings and extensions
-    app.config.from_object('baiter.config.DevConfig')
+    app.config.from_object(conf_var)
 
     # initialize extensions
     db.init_app(app)
