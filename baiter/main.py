@@ -1,4 +1,10 @@
-from flask import redirect, request, render_template, session, Blueprint, url_for
+from flask import (
+    redirect,
+    request,
+    render_template,
+    Blueprint,
+    url_for
+)
 
 
 from flask_login import login_required, login_user, current_user

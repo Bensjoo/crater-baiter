@@ -28,7 +28,6 @@ class DockerConfig(Config):
     FULL_URL = f"{HTTP}{URL}:{PORT}"
 
 
-
 class ProdConfig(Config):
     FLASK_DEBUG = False
     PORT = 5000
