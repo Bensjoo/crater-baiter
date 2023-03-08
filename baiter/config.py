@@ -13,6 +13,7 @@ class DevConfig(Config):
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///myapp.db'
     HOST = 'localhost'
     HTTP = 'http://'
+    SERVING_ADDRESS = HOST
     PORT = 5001
     FULL_URL = f"{HTTP}{HOST}:{PORT}"
     SQLALCHEMY_DATABASE_URI = 'sqlite:///project.db'
@@ -21,19 +22,22 @@ class DevConfig(Config):
 class DockerConfig(Config):
     # testconfig using docker
     SQLALCHEMY_DATABASE_URI = 'sqlite:///project.db'
-    HOST = '0.0.0.0'
-    URL = 'localhost'
+    HOST = 'localhost'
+    SERVING_ADDRESS = HOST
     HTTP = 'http://'
     PORT = 5001
-    FULL_URL = f"{HTTP}{URL}:{PORT}"
+    FULL_URL = f"{HTTP}{HOST}:{PORT}"
 
 
 class ProdConfig(Config):
+    # testconfig using docker
     FLASK_DEBUG = False
-    PORT = 5000
-    HOST = 'dalaran.bengan.dev'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///project.db'
+    HOST = os.getenv('HOST')
+    SERVING_ADDRESS = '0.0.0.0'
     HTTP = 'https://'
-    FULL_URL = f"{HTTP}{HOST}:{PORT}"
+    PORT = 5001
+    FULL_URL = f"{HTTP}{HOST}"
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI')
 
 

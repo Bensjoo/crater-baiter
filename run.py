@@ -5,4 +5,8 @@ app = create_app()
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host=app.config['HOST'], port=app.config['PORT'])
+    app.run(
+        debug=app.config['FLASK_DEBUG'],
+        host=app.config['SERVING_ADDRESS'],
+        port=app.config['PORT']
+    )

@@ -3,3 +3,4 @@ __pycache__*
 .pytest_*
 venv
 instance
+deployment/secret.yaml
