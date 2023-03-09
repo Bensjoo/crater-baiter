@@ -7,11 +7,11 @@ from flask import (
 )
 
 
-from flask_login import login_required, login_user, current_user
+from flask_login import login_required, login_user, current_user, logout_user
 
 
 from baiter import discord, db
-from baiter.models import User
+from baiter.models import User, Victim
 from baiter.auth import CALLBACK_ROUTE
 # from models import classes
 
@@ -26,18 +26,11 @@ def home():
     provide link to login or 'add new victim' button
     TODO: see overview of kill statistics/list of kills if logged in?
     """
-
-    # if not token:
-    return render_template('home.html', oauth_url=discord.oauth_url)
-
-    # current_user = discord.get_current_user(token)
-    # if 'token' in session:
-    #     current_user = discord.get_current_user(session['token'])
-    #     return render_template('home.html', current_user=current_user)
-    # return render_template(
-    #     'home.html',
-    #     oauth_url=discord.oauth_url
-    # )
+    if current_user.is_authenticated:
+        victims = Victim.query.order_by(Victim.added.desc())
+        return render_template('victims.html', victims=victims)
+    else:
+        return render_template('home.html', oauth_url=discord.oauth_url)
 
 
 @main_bp.route(CALLBACK_ROUTE)
@@ -56,16 +49,15 @@ def callback():
         db.session.commit()
 
     login_user(user)
-    return redirect(url_for('main_bp.logged_in'))
+    return redirect(url_for('main_bp.home'))
 
 
+@main_bp.route('/logout')
 @login_required
-@main_bp.route('/loggedin')
-def logged_in():
-    if current_user.is_authenticated:
-        return f"current user = {current_user.username}"
-    else:
-        return "login failed for some reason!"
+def logout():
+    logout_user()
+    # flash('You have been logged out.')
+    return redirect(url_for('main_bp.home'))
 
 # @main_bp.route("/crater", methods=["GET", "POST"])
 # def add_victim():

@@ -43,3 +43,27 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f"User('{self.username}')"
+
+
+class Victim(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    added = db.Column(
+        db.TIMESTAMP,
+        server_default=db.func.now(),
+        nullable=False
+    )
+
+    name = db.Column(db.String(50), nullable=True)
+    server = db.Column(db.String(50), nullable=True)
+    wow_class = db.Column(
+        db.Enum(
+            *[c.pretty_name for c in classes],
+            name="wow_class_enum"
+            ),
+        nullable=False
+    )
+    x_coord = db.Column(db.Float, nullable=True)
+    y_coord = db.Column(db.Float, nullable=True)
+
+    def __repr__(self):
+        return f"Victim(id={self.id}, name={self.name}, cls={self.wow_class})"

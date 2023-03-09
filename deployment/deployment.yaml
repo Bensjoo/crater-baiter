@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: crater-baiter
-          image: bengan/crater-baiter:0.2.2
+          image: bengan/crater-baiter:0.2.4
           ports:
             - containerPort: 5001
           envFrom:

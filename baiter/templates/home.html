@@ -1,5 +1,10 @@
-<h1>Welcome to Crater-baiter-v0!</h1>
-<br></br>
-<a href="{{ oauth_url }}"> Login using Discord</a>
-
-<p>{{ test_var }}</p>
+{% extends "layout.html" %}
+{% block content %}
+<main class="px-3">
+    <h1>Track your sacrifices to Dalaran!</h1>
+    <p class="lead">With Crater Baiter, you can now keep track of your mischiefs created using mage portals to old Dalaran!</p>
+  <p class="lead">
+    <a href="{{ oauth_url }}" class="btn btn-lg btn-light fw-bold border-white bg-white">Discord Login</a>
+  </p>
+</main>
+{% endblock content %}
