@@ -2,14 +2,13 @@ import os
 
 
 class Config(object):
-    FLASK_DEBUG = True
-    TESTING = False
     SECRET_KEY = os.environ.get('SECRET_KEY', 'my_secret_key')
     DISCORD_CLIENT_ID = os.getenv('DISCORD_CLIENT_ID')
     DISCORD_SECRET_KEY = os.getenv('DISCORD_SECRET_KEY')
 
 
 class DevConfig(Config):
+    FLASK_DEBUG = True
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///myapp.db'
     HOST = 'localhost'
     HTTP = 'http://'
@@ -20,6 +19,7 @@ class DevConfig(Config):
 
 
 class DockerConfig(Config):
+    FLASK_DEBUG = True
     # testconfig using docker
     SQLALCHEMY_DATABASE_URI = 'sqlite:///project.db'
     HOST = 'localhost'
@@ -32,7 +32,7 @@ class DockerConfig(Config):
 class ProdConfig(Config):
     # testconfig using docker
     FLASK_DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///project.db'
+    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
     HOST = os.getenv('HOST')
     SERVING_ADDRESS = '0.0.0.0'
     HTTP = 'https://'

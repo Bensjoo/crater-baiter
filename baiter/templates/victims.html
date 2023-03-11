@@ -3,7 +3,21 @@
 <main class="px-3">
   <h1>Happy Hunting, {{ current_user.username }}!</h1>
   <p class="lead"></p>
-  <p class="lead">More features will come soon so please stay tuned!</p>
+  <form action="/" method="post" class="flow">
+    <label class="fs-500 ff-heading fw-700" for="class_choice">Choose a class:</label>
+    <div class="class-choice">
+      {% for class in classes %}
+        {% set name = class.pretty_name %}
+        {% set css = class.css %}
+        <div class="class-item">
+          <input type="radio" id="{{ name|lower }}" name="class_choice" value="{{ name|lower }}">
+          <label for="{{ name|lower }}">
+            <span class="class-name {{ css|lower }}">{{ name }}</span>
+          </label>
+        </div>
+      {% endfor %}
+    </div>
+</form>
   
   <p class="lead">
     <a href="{{ url_for('main_bp.logout') }}" class="btn btn-lg btn-light fw-bold border-white bg-white">Done for today!</a>
