@@ -11,14 +11,19 @@ create python virtual env. `python=3.9.15`
 ```bash
 pip install -r requirements.txt
 
-export DISCORD_CLIENT_ID=....
-export DISCORD_SECRET_ID=....
+# Required env variables
+DISCORD_CLIENT_ID=VALUE
+DISCORD_SECRET_KEY=VALUE
+SECRET_KEY=VALUE
+APP_CONFIG=VALUE
+HOST=VALUE
+SQLALCHEMY_DATABASE_URI=VALUE
 
 python run.py
 ```
 
-
-## Run in prod
-TODO:
-- build container
-- kustomize for k8s deployment
+# TODO:
+- add new crater victim form
+- start page => list of latest victims
+- CRUD victims
+- simple auth in debug mode
