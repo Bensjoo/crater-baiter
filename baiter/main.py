@@ -13,7 +13,7 @@ from flask_login import login_required, login_user, current_user, logout_user
 from baiter import discord, db
 from baiter.models import User, Victim
 from baiter.auth import CALLBACK_ROUTE
-# from models import classes
+from baiter.models import classes
 
 
 main_bp = Blueprint('main_bp', __name__)
@@ -23,12 +23,11 @@ main_bp = Blueprint('main_bp', __name__)
 @main_bp.route('/home')
 def home():
     """
-    provide link to login or 'add new victim' button
     TODO: see overview of kill statistics/list of kills if logged in?
     """
     if current_user.is_authenticated:
         victims = Victim.query.order_by(Victim.added.desc())
-        return render_template('victims.html', victims=victims)
+        return render_template('victims.html', victims=victims, classes=classes)
     else:
         return render_template('home.html', oauth_url=discord.oauth_url)
 

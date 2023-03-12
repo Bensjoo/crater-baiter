@@ -9,8 +9,9 @@
           <th class="">Name</th>
           <th>Server</th>
           <th>Class</th>
-          <th>X Coordinate</th>
-          <th>Y Coordinate</th>
+          <th>X Coord</th>
+          <th>Y Coord</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -18,9 +19,15 @@
           <tr>
             <td>{{ victim.name }}</td>
             <td>{{ victim.server }}</td>
-            <td>{{ victim.wow_class }}</td>
+            <td class="{{ victim.wow_class }}">{{ classes[victim.wow_class]['pretty_name'] }}</td>
             <td>{{ victim.x_coord }}</td>
             <td>{{ victim.y_coord }}</td>
+            <td>
+              <form id="delete-form-{{ victim.id }}" action="{{ url_for('victims.delete_victim', id=victim.id) }}" method="post">
+                <button type="button" class="btn btn-outline-danger" onclick="showConfirmDialog({{ victim.id }})">Delete</button>
+                <button type="submit" class="btn btn-danger d-none" id="confirm-delete-{{ victim.id }}">Confirm 🗑</button>
+              </form>
+            </td>
           </tr>
         {% endfor %}
       </tbody>
@@ -32,3 +39,4 @@
   </p>
 </main>
 {% endblock content %}
+
