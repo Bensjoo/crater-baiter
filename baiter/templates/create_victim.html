@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<main class="px-3">
+  <h1>Create New Victim</h1>
+  <form method="POST" action="{{ url_for('victims.new_victim') }}">
+    {{ form.csrf_token }}
+css
+Copy code
+<div class="form-group">
+  {{ form.name.label }}
+  {{ form.name(class="form-control") }}
+  {% for error in form.name.errors %}
+    <span class="text-danger">{{ error }}</span>
+  {% endfor %}
+</div>
+
+<div class="form-group">
+  {{ form.server.label }}
+  {{ form.server(class="form-control") }}
+  {% for error in form.server.errors %}
+    <span class="text-danger">{{ error }}</span>
+  {% endfor %}
+</div>
+
+<div class="form-group">
+  {{ form.wow_class.label }}
+  {{ form.wow_class(class="form-control") }}
+  {% for error in form.wow_class.errors %}
+    <span class="text-danger">{{ error }}</span>
+  {% endfor %}
+</div>
+
+<div class="form-group">
+  {{ form.x_coord.label }}
+  {{ form.x_coord(class="form-control") }}
+  {% for error in form.x_coord.errors %}
+    <span class="text-danger">{{ error }}</span>
+  {% endfor %}
+</div>
+
+<div class="form-group">
+  {{ form.y_coord.label }}
+  {{ form.y_coord(class="form-control") }}
+  {% for error in form.y_coord.errors %}
+    <span class="text-danger">{{ error }}</span>
+  {% endfor %}
+</div>
+
+<button type="submit" class="btn btn-primary">Create</button>
+  </form>
+</main>
+{% endblock content %}
