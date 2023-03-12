@@ -23,7 +23,7 @@ class DockerConfig(Config):
     # testconfig using docker
     SQLALCHEMY_DATABASE_URI = 'sqlite:///project.db'
     HOST = 'localhost'
-    SERVING_ADDRESS = HOST
+    SERVING_ADDRESS = '0.0.0.0'
     HTTP = 'http://'
     PORT = 5001
     FULL_URL = f"{HTTP}{HOST}:{PORT}"

@@ -6,7 +6,7 @@ flask-wtf
 jinja2
 authlib
 requests
-
+psycopg2-binary
 # testing
 #flake8
 #pytest
