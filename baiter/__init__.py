@@ -33,7 +33,9 @@ def create_app():
 
     # Blueprints
     from baiter.main import main_bp
+    from baiter.victims.routes import victims
     app.register_blueprint(main_bp)
+    app.register_blueprint(victims)
 
     # define error handlers
     @app.errorhandler(404)

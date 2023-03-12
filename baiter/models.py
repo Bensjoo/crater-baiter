@@ -57,13 +57,14 @@ class Victim(db.Model):
     server = db.Column(db.String(50), nullable=True)
     wow_class = db.Column(
         db.Enum(
-            *[c.pretty_name for c in classes],
+            *[c.css for c in classes],
             name="wow_class_enum"
             ),
         nullable=False
     )
     x_coord = db.Column(db.Float, nullable=True)
     y_coord = db.Column(db.Float, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f"Victim(id={self.id}, name={self.name}, cls={self.wow_class})"
