@@ -1,32 +1,24 @@
-from dataclasses import dataclass
-
 from flask_login import UserMixin
 
 
 from baiter import db, login_manager
 
 
-@dataclass
-class WOWClass:
-    pretty_name: str
-    css: str
-
-
-classes: list[WOWClass] = [
-    WOWClass("Warrior", "warrior"),
-    WOWClass("Paladin", "paladin"),
-    WOWClass("Hunter", "hunter"),
-    WOWClass("Rogue", "rogue"),
-    WOWClass("Priest", "preist"),
-    WOWClass("Death Knight", "deathknight"),
-    WOWClass("Shaman", "shaman"),
-    WOWClass("Mage", "mage"),
-    WOWClass("Warlock", "warlock"),
-    WOWClass("Druid", "druid"),
-    WOWClass("Demon Hunter", "demonhunter"),
-    WOWClass("Evoker", "evoker")
-]
-
+classes = {
+    "warrior": {"color": "#C79C6E", "pretty_name": "Warrior"},
+    "paladin": {"color": "#F58CBA", "pretty_name": "Paladin"},
+    "hunter": {"color": "#ABD473", "pretty_name": "Hunter"},
+    "rogue": {"color": "#FFF569", "pretty_name": "Rogue"},
+    "priest": {"color": "#FFFFFF", "pretty_name": "Priest"},
+    "deathknight": {"color": "#C41F3B", "pretty_name": "Death Knight"},
+    "shaman": {"color": "#0070DE", "pretty_name": "Shaman"},
+    "mage": {"color": "#69CCF0", "pretty_name": "Mage"},
+    "warlock": {"color": "#9482C9", "pretty_name": "Warlock"},
+    "druid": {"color": "#FF7D0A", "pretty_name": "Druid"},
+    "demonhunter": {"color": "#A330C9", "pretty_name": "Demon Hunter"},
+    "evoker": {"color": "#008149", "pretty_name": "Evoker"}
+}
+l_classes = list(classes.keys())
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -57,7 +49,7 @@ class Victim(db.Model):
     server = db.Column(db.String(50), nullable=True)
     wow_class = db.Column(
         db.Enum(
-            *[c.css for c in classes],
+            *[c for c in l_classes],
             name="wow_class_enum"
             ),
         nullable=False

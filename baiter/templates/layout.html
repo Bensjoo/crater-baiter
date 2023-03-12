@@ -18,8 +18,6 @@
 <link rel="shortcut icon" href="/static/crater_baiter_v1.png" sizes="32x32 16x16" type="image/png">
 <link rel="icon" href="/static/crater_baiter_v1.png">
 <meta name="theme-color" content="#712cf9">
-
-
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -71,6 +69,71 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+
+
+      .deathknight {
+          color: #C41F3B;
+      }
+
+      .demonhunter {
+          color: #A330C9;
+      }
+
+      .druid {
+          color: #FF7D0A;
+      }
+
+      .hunter {
+          color: #ABD473;
+      }
+
+      .mage {
+          color: #69CCF0;
+      }
+
+      .monk {
+          color: #00FF96;
+      }
+
+      .paladin {
+          color: #F58CBA;
+      }
+
+      .priest {
+          color: #FFFFFF;
+      }
+
+      .rogue {
+          color: #FFF569;
+      }
+
+      .shaman {
+          color: #0070DE;
+      }
+
+      .warlock {
+          color: #9482C9;
+      }
+
+      .warrior {
+          color: #C79C6E;
+      }
+
+      .evoker {
+          color: #008149;
+      }
+
+      form button[type="submit"].d-none {
+        display: none;
+      }
+      
+      form button[type="submit"] {
+        margin-right: 0.5rem;
+      }
+      
+      form button[type="submit"] .fa-trash {
+        margin-left: 0.5rem;
+      }
     </style>
 
     
@@ -104,6 +167,15 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+    <script>
+      function showConfirmDialog(id) {
+        var deleteForm = document.getElementById('delete-form-' + id);
+        var deleteButton = deleteForm.querySelector('button[type="button"]');
+        var confirmButton = deleteForm.querySelector('button[type="submit"]');
+        
+        deleteButton.classList.add('d-none');
+        confirmButton.classList.remove('d-none');
+      }
+    </script>    
   </body>
 </html>

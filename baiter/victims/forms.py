@@ -10,7 +10,7 @@ class VictimForm(FlaskForm):
     wow_class = SelectField(
         'Class',
         validators=[InputRequired()],
-        choices=[(c.css, c.pretty_name) for c in classes]
+        choices=[(c, v['pretty_name']) for c, v in classes.items()]
     )
     x_coord = FloatField('X Coordinate')
     y_coord = FloatField('Y Coordinate')
