@@ -23,12 +23,24 @@ Copy code
   {% endfor %}
 </div>
 
+<style>
+  {% for wow_class, feats in classes.items() %}
+  .button{{wow_class}}
+</style>
 <div class="form-group">
-  {{ form.wow_class.label }}
-  {{ form.wow_class(class="form-control") }}
-  {% for error in form.wow_class.errors %}
-    <span class="text-danger">{{ error }}</span>
-  {% endfor %}
+  
+  <div class="row">
+    <div class="col-md-6">
+    {% set selected_class = form.wow_class.data %}
+    {% for wow_class in l_classes[:5] %}
+      <button type="button" class="btn {{ 'btn-outline-danger' if selected_class != wow_class else 'btn-danger' }}" name="{{ classes[wow_class]['pretty_name'] }}" value="{{ wow_class }}" style="border-color: {{ classes[wow_class]['color'] }}; color: {{ classes[wow_class]['color'] }};">{{ classes[wow_class]['pretty_name'] }}</button>
+    {% endfor %}
+  </div>
+  <div>
+    {% for wow_class in l_classes[5:] %}
+      <button type="button" class="btn {{ 'btn-outline-danger' if selected_class != wow_class else 'btn-danger' }}" name="{{ classes[wow_class]['pretty_name'] }}" value="{{ wow_class }}" style="border-color: {{ classes[wow_class]['color']  }}; color: {{ classes[wow_class]['color'] }};">{{ classes[wow_class]['pretty_name'] }}</button>
+    {% endfor %}
+  </div>
 </div>
 
 <div class="form-group">

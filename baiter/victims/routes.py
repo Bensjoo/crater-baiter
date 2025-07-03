@@ -3,7 +3,7 @@ from flask import (render_template, url_for, flash,
                    redirect, abort, Blueprint)
 from flask_login import current_user, login_required
 from baiter import db
-from baiter.models import Victim
+from baiter.models import Victim, classes, l_classes
 from baiter.victims.forms import VictimForm
 
 
@@ -28,7 +28,7 @@ def new_victim():
         db.session.commit()
         # flash('Your victim has been created!', 'success')
         return redirect(url_for('main_bp.home'))
-    return render_template('create_victim.html', title='New Victim', form=form)
+    return render_template('create_victim.html', title='New Victim', form=form, classes=classes, l_classes=l_classes)
 
 
 @victims.route('/victims/delete/<int:id>', methods=['POST'])
