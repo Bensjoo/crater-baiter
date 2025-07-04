@@ -1,0 +1,9 @@
+## Interface: 110107
+## Title: Crater Baiter
+## Notes: Track players helped finding Dalaran Crater
+## Author: Barboosa
+## Version: 0.0.1
+## X-Curse-Project-ID: 999999
+## SavedVariables: CraterBaiter_DB
+
+CraterBaiter.lua
