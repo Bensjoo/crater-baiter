@@ -2,9 +2,8 @@
 ## Title: Crater Baiter
 ## Notes: Track players helped finding Dalaran Crater
 ## Author: Barboosa
-## Version: 0.0.1
-## X-Curse-Project-ID: 999999
-## SavedVariables:
-## SavedVariablesPerCharacter: CraterBaiter_DB
+## Version: 1.0.0
+## X-Curse-Project-ID: 1302321
+## SavedVariables: CraterBaiter_DB
 ## IconTexture: Interface\AddOns\CraterBaiter\icon
 CraterBaiter.lua

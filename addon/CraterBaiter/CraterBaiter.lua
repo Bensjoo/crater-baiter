@@ -7,8 +7,10 @@ if not CraterBaiter_DB then
 end
 local debug = false
 local appNameColored = "|cFF00FF00Crater Baiter|r"
-print(appNameColored .. " v0.0.1" .. " loaded!")
-
+local appVersionSemVer = "v1.0.0"
+local function printVersion()
+    print(appNameColored .. " ".. appVersionSemVer .. " by |cFF3477EBBarboosa|r" .. " | help: /cb")
+end
 -- colored class names
 local CLASS_COLORS = {
     ["WARRIOR"] = "|cFFC79C6E",
@@ -31,6 +33,10 @@ local function GetColoredClassName(classFile, className)
     return color .. (className or "Unknown") .. "|r"
 end
 
+local function getTimeStr(timeInt)
+    local timeStr = timeInt and date("%m/%d %H:%M", timeInt) or "Unknown"
+    return timeStr
+end
 
 local function GetUnitCoordinates(unit)
     local mapID = C_Map.GetBestMapForUnit(unit)
@@ -65,7 +71,7 @@ local function logHelpfulPortal(name, realm, class, xPos, yPos, logTime)
     table.insert(CraterBaiter_DB.logs, helpedPlayer)
     CraterBaiter_DB.logged = #CraterBaiter_DB.logs
     if debug then
-        print("======= |cFF3477EBPlayer Found Dalaran!|r ======")
+        print("======= |cFF3477EBDEBUG LOG DATA|r ======")
         print("name:    " .. tostring(name))
         print("realm:   " .. tostring(realm))
         print("class:   " .. tostring(class))
@@ -75,6 +81,21 @@ local function logHelpfulPortal(name, realm, class, xPos, yPos, logTime)
         end
         print("logTime: " .. tostring(logTime))
         print("================================")
+    
+    if xPos then
+        coords = string.format(" - at (%.2f, %.2f)", xPos, yPos)
+    else
+        coords = " - Failed to fetch x,y"
+    end
+    print(
+        string.format(
+            "[%s] %s Found Dalaran!%s | Total count: %d", 
+            getTimeStr(logTime),
+            GetColoredClassName(class, name .. "-" ..realm),
+            coords,
+            CraterBaiter_DB.logged
+        )
+    )
     end
 end
 
@@ -106,7 +127,7 @@ local function listLogs()
         return
     end
 
-    print("Helped |cFF3477EB".. tostring(#CraterBaiter_DB.logs) .. "|r Players find the Crater")
+    print("===== Crater log -- |cFF3477EB".. tostring(#CraterBaiter_DB.logs) .. "|r total =====")
     
     for i, log in ipairs(CraterBaiter_DB.logs) do
         local coords = ""
@@ -134,39 +155,54 @@ local function MenuHandler(owner, rootDescription, contextData)
     if not contextData or not contextData.name then
         return
     end
+
+    
+    
+
     rootDescription:CreateDivider()
     rootDescription:CreateButton("Log Helpful Portal", function()
-        local unit = contextData.unit
+        -- self data
+        local playerName = UnitName("player")
+        local playerRealm = GetRealmName()
         
+        -- target data
+        local unit = contextData.unit
         local targetName = contextData.name
         local targetClass = contextData.class
-        local targetRealm = contextData.server or GetRealmName()
-        local xPos, yPos = nil, nil
-        local logTime = GetServerTime()
-
-        local isUnreleasedCorpse = UnitIsDead(contextData.unit)
-        if isUnreleasedCorpse or debug then
-            xPos, yPos = GetUnitCoordinates(contextData.unit)
+        local targetRealm = contextData.server or playerRealm
+        local localizedClass, englishClass = UnitClass(unit)
+        -- self-check, enable self-log in debug mode
+        if (playerName .. playerRealm == targetName .. targetRealm ) and (debug == false) then
+            print("won't log self unless debug mode")
+            return true
         end
+            local logTime = GetServerTime()
+        local xPos, yPos = nil, nil
+        
 
-        local localizedClass, englishClass = UnitClass(contextData.unit)
+        local isUnreleasedCorpse = UnitIsDead(unit)
+        if isUnreleasedCorpse or debug then
+            xPos, yPos = GetUnitCoordinates(unit)
+        end
+        
 
         logHelpfulPortal(targetName, targetRealm, englishClass, xPos, yPos, logTime)
     end)
 end
 
+-- script execution
+printVersion()
 -- Slash command setup
 SLASH_CRATERBAITER1 = "/cb"
 SlashCmdList["CRATERBAITER"] = function(msg)
     local cmd = string.lower(msg or "")
-    
     if cmd == "debug" then
         print("CraterBaiter: Debug mode activated")
         debug = true
     elseif cmd == "list" then
         listLogs()
     elseif cmd == "version" then
-        print("|cFF00FF00Crater Baiter|r Version v0.0.1 by |cFF3477EBBarboosa|r")
+        printVersion()
     elseif cmd == "stats" then
         print("Helped |cFF3477EB".. tostring(#CraterBaiter_DB.logs) .. "|r Players find the Crater")
     elseif cmd:match("^remove ") then
@@ -183,7 +219,6 @@ SlashCmdList["CRATERBAITER"] = function(msg)
             print("Can only flush logs in debug mode. run /cb debug")
         end
     else
-        print("|cFF00FF00Crater Baiter|r Version v0.0.1 by |cFF3477EBBarboosa|r")
         print("Crater Baiter Commands:")
         print("-  /cb stats")
         print("-  /cb version")
@@ -201,13 +236,12 @@ if Menu and Menu.ModifyMenu then
         "MENU_UNIT_PARTY",
         "MENU_UNIT_RAID_PLAYER",
         "MENU_UNIT_FRIEND",
-        "MENU_UNIT_SELF",
 
         -- General
         -- "MENU_UNIT_TARGET",         -- Any target
         "MENU_UNIT_FOCUS",          -- Focus target
+        "MENU_UNIT_SELF"
     }
-    
     for _, tag in ipairs(menuTags) do
         Menu.ModifyMenu(tag, MenuHandler)
     end
