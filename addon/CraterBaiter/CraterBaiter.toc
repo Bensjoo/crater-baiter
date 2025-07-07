@@ -6,5 +6,5 @@
 ## X-Curse-Project-ID: 999999
 ## SavedVariables:
 ## SavedVariablesPerCharacter: CraterBaiter_DB
-
+## IconTexture: Interface\AddOns\CraterBaiter\icon
 CraterBaiter.lua

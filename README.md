@@ -1,5 +1,5 @@
 # Crater baiter
-Helps the average up-to-no-good mage keep track of unhelpful portals and their victims
+Helps the average mage keep track of helpful portals, successfully showing people the magic of the Dalaran Crater
 
 In order to do this we want to ideally:
 - Have an in-game Addon that can log a users "helped" players, possibly get insights but most likely upload to the central repo
