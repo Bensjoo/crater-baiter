@@ -4,6 +4,7 @@
 ## Author: Barboosa
 ## Version: 0.0.1
 ## X-Curse-Project-ID: 999999
-## SavedVariables: CraterBaiter_DB
+## SavedVariables:
+## SavedVariablesPerCharacter: CraterBaiter_DB
 
 CraterBaiter.lua
