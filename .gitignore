@@ -6,3 +6,14 @@ instance
 deployment/secret.yaml
 .DS_Store
 CraterBaiter.zip
+play-samples-3.0.x
+
+logs
+project/project
+project/target
+target
+tmp
+dist
+.bsp
+.cache
+RUNNING_PID
