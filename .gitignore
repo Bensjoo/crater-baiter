@@ -17,3 +17,14 @@ dist
 .bsp
 .cache
 RUNNING_PID
+logs
+target
+/.bsp
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
+.scala-build
+.vscode
